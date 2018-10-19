@@ -55,6 +55,7 @@ from openprocurement.api.models.schema import (  # noqa: F401
     ProcuringEntity,
     ModelType,
     Organization as BaseOrganization,
+    RelatedProcess,
     Value,
     schematics_default_role,
     schematics_embedded_role,

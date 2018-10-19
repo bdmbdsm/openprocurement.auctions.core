@@ -4,6 +4,7 @@ from openprocurement.api.adapters import (
     AwardingNextCheckAdapter
 )
 from openprocurement.api.utils import error_handler
+from openprocurement.api.managers import Manager
 
 
 class AuctionConfigurator(ContentConfigurator):

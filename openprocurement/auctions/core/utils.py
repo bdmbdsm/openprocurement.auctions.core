@@ -22,6 +22,7 @@ from openprocurement.api.constants import (
 from openprocurement.api.interfaces import (
     IProjectConfigurator  # noqa forwarded import
 )
+from openprocurement.api.plugins.related_processes import add_related_processes_views
 from openprocurement.api.validation import error_handler
 
 from openprocurement.api.utils import (
