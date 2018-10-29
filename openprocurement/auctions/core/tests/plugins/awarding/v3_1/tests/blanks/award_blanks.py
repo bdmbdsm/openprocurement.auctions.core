@@ -707,6 +707,7 @@ def patch_auction_award(self):
 def patch_auction_award_admin(self):
     request_path = '/auctions/{}/awards'.format(self.auction_id)
 
+    import ipdb; ipdb.set_trace()
     response = self.app.get(request_path)
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
@@ -715,16 +716,27 @@ def patch_auction_award_admin(self):
     authorization = self.app.authorization
 
     self.app.authorization = ('Basic', ('administrator', ''))
-    response = self.app.patch_json('/auctions/{}/awards/{}'.format(self.auction_id, self.first_award_id),
-                                   {"data": {
-                                       "verificationPeriod": {
-                                           'endDate': self.first_award['verificationPeriod']['startDate']},
-                                       "signingPeriod": {'endDate': self.first_award['signingPeriod']['startDate']}}
-                                   })
+    response = self.app.patch_json(
+        '/auctions/{}/awards/{}'.format(self.auction_id, self.first_award_id),
+        {"data": {
+            "verificationPeriod": {
+                'endDate': self.first_award['verificationPeriod']['startDate']
+            },
+            "signingPeriod": {
+                'endDate': self.first_award['signingPeriod']['startDate']
+            }
+        }}
+    )
     self.assertEqual(response.status, '200 OK')
-    first_award = response.json['data']
-    self.assertEqual(first_award['verificationPeriod']['startDate'], first_award['verificationPeriod']['endDate'])
-    self.assertEqual(first_award['signingPeriod']['startDate'], first_award['signingPeriod']['endDate'])
+    first_award_recv = response.json['data']
+    self.assertEqual(
+        first_award_recv['verificationPeriod']['startDate'],
+        first_award_recv['verificationPeriod']['endDate']
+    )
+    self.assertEqual(
+        first_award_recv['signingPeriod']['startDate'],
+        first_award_recv['signingPeriod']['endDate']
+    )
 
     response = self.app.patch_json('/auctions/{}/awards/{}'.format(self.auction_id, self.first_award_id),
                                    {"data": {
@@ -733,12 +745,25 @@ def patch_auction_award_admin(self):
                                        "signingPeriod": {'endDate': None}}
                                    })
     self.assertEqual(response.status, '200 OK')
-    first_award = response.json['data']
-    self.assertNotEqual(first_award['status'], 'active')
-    self.assertNotEqual(first_award['verificationPeriod']['startDate'], first_award['verificationPeriod']['endDate'])
-    self.assertEqual(first_award['verificationPeriod']['endDate'], self.first_award['verificationPeriod']['endDate'])
-    self.assertNotEqual(first_award['signingPeriod']['startDate'], first_award['signingPeriod']['endDate'])
-    self.assertEqual(first_award['signingPeriod']['endDate'], self.first_award['signingPeriod']['endDate'])
+    first_award_recv = response.json['data']
+    self.assertNotEqual(first_award_recv['status'], 'active')
+    self.assertNotEqual(
+        first_award_recv['verificationPeriod']['startDate'],
+        first_award_recv['verificationPeriod']['endDate']
+    )
+    import ipdb; ipdb.set_trace()
+    self.assertEqual(
+        first_award_recv['verificationPeriod']['endDate'],
+        self.first_award['verificationPeriod']['endDate']
+    )
+    self.assertNotEqual(
+        first_award_recv['signingPeriod']['startDate'],
+        first_award_recv['signingPeriod']['endDate']
+    )
+    self.assertEqual(
+        first_award_recv['signingPeriod']['endDate'],
+        self.first_award['signingPeriod']['endDate']
+    )
 
     self.app.authorization = authorization
 
