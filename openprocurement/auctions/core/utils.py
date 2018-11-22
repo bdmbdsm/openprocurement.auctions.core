@@ -60,6 +60,7 @@ from openprocurement.auctions.core.plugins.awarding import includeme as awarding
 from openprocurement.auctions.core.plugins.contracting import includeme as contracting
 from openprocurement.auctions.core.traversal import factory
 from openprocurement.auctions.core.configurator import project_configurator
+from openprocurement.api.plugins.related_processes import add_related_processes_views  # noqa import forward
 
 
 PKG = get_distribution(__package__)
