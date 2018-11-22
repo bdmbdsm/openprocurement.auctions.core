@@ -707,7 +707,6 @@ def patch_auction_award(self):
 def patch_auction_award_admin(self):
     request_path = '/auctions/{}/awards'.format(self.auction_id)
 
-    import ipdb; ipdb.set_trace()
     response = self.app.get(request_path)
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
@@ -751,7 +750,6 @@ def patch_auction_award_admin(self):
         first_award_recv['verificationPeriod']['startDate'],
         first_award_recv['verificationPeriod']['endDate']
     )
-    import ipdb; ipdb.set_trace()
     self.assertEqual(
         first_award_recv['verificationPeriod']['endDate'],
         self.first_award['verificationPeriod']['endDate']
