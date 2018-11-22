@@ -47,7 +47,8 @@ from openprocurement.api.utils import (
     get_plugin_aliases,  # noqa forwarded import
     get_evenly_plugins,  # noqa forwarded import
     get_plugins,  # noqa forwarded import
-    get_forbidden_users # noqa forwarded import
+    get_forbidden_users, # noqa forwarded import
+    search_list_with_dicts, # noqa forwarded import
 )
 
 from openprocurement.auctions.core.constants import (
